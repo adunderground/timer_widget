@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-<!-- 	<title>Timer</title>
-	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Oswald:700" rel="stylesheet"> -->
-	<style>
-		/*css reset*/
+  <head>
+    <meta charset="UTF-8" />
+    <title>Timer ⏲️</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@100;300;400;700&display=swap" rel="stylesheet"/>
+    <style>
+    /*css reset*/
 		html, body, div, span, applet, object, iframe,
 		h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 		a, abbr, acronym, address, big, cite, code,
@@ -36,908 +35,248 @@
 		body {
 			line-height: 1;
 		}
-		ol, ul {
-			list-style: none;
-		}
-		blockquote, q {
-			quotes: none;
-		}
-		blockquote:before, blockquote:after,
-		q:before, q:after {
-			content: '';
-			content: none;
-		}
-		table {
-			border-collapse: collapse;
-			border-spacing: 0;
-		}
-		* {
-			box-sizing: border-box;
-		}
-		/* END CSS RESET */
+          ol,
+          ul {
+            list-style: none;
+          }
+          blockquote,
+          q {
+            quotes: none;
+          }
+          blockquote:before,
+          blockquote:after,
+          q:before,
+          q:after {
+            content: '';
+            content: none;
+          }
+          table {
+            border-collapse: collapse;
+            border-spacing: 0;
+          }
+          * {
+            box-sizing: border-box;
+          }
+          /* END CSS RESET */
 
-		/*main styles*/
+          html,
+          body {
+            width: 100%;
+            height: 100vh;
+            font-family: 'IBM Plex Sans', sans-serif;
+          }
 
-		html, body {
-			width: 100%;
-			height: 100%;
-		}
+          main {
+            background: #ff6f4c;
+            color: #fff;
+      			padding: 7rem 10rem;
+            height: 100%;
+            width: 100%;
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: center;
+            align-items: stretch;
+            transition: background 1s linear;
+          }
 
-		main {
-			background: #ff6f4c;
-			color: #fff;
-			font-family: "arial";
-			padding: 95px 140px;
-			height: 100%;
-			width: 100%;
-			display: flex;
-			flex-flow: column nowrap;
-			justify-content: flex-start;
-			align-items: stretch;
-			transition: background 1s linear;
-		}
+          #title {
+            font-size: 9rem;
+            font-weight: 100;
+            text-align: center;
+            text-shadow: 2px 3px 20px rgba(0, 0, 0, 0.4);
+          }
 
-		#title {
-			font-size: 9rem;
-			text-align: center;
-			line-height: 190px;
-			font-family: 'open sans';
-		}
+          #bar {
+            width: 100%;
+            height: 15px;
+            background: #fff;
+            margin-top: 30px;
+            border-radius: 2px;
+          }
 
-		#bar {
-			width: 100%;
-			height: 15px;
-			background: #fff;
-			margin-top: 50px;
-			margin-bottom: 145px;
-		}
+          /* clock styling */
+          #timer {
+						line-height: 1.2;
+      			margin-top: 80px;
+            display: flex;
+            flex-flow: row wrap;
+            flex: 1;
+            justify-content: space-between;
+            align-content: space-between;
+          }
 
-		/* clock styling */
+          #timer > div {
+            display: flex;
+            flex-flow: column nowrap;
+            align-items: center;
+          }
 
-		#timer {
-			flex: 1;
-			display: flex;
-			flex-flow: row wrap;
-			justify-content: space-between;
-			align-content: space-between;
-		}
+          #timer .svgclock {
+            width: 350px;
+          }
 
-		#timer > div {
-			display: flex;
-			flex-flow: column nowrap;
-			justify-content: flex-start;
-			align-items: center;
-		}
+          #timer svg {
+            overflow: visible;
+          }
+
+          /* border only */
+          #timer circle {
+            fill: transparent;
+            stroke-width: 0.01;
+            stroke: #ef8c59;
+          }
+
+          /* actual svg circle */
+          #timer .clock {
+            fill: url(#clockgradient);
+            stroke: #fff;
+            stroke-width: 0.03;
+            transform: scale(1, -1);
+          }
+
+          #timer .time {
+            font-size: 0.5px;
+            text-shadow: 2px 3px 10px rgba(0, 0, 0, 0.4);
+            text-anchor: middle;
+            fill: #fff;
+            font-weight: 300;
+          }
+
+          #timer .title {
+            margin-top: 25px;
+            font-size: 5rem;
+            font-weight: 100;
+            text-shadow: 2px 3px 10px rgba(0, 0, 0, 0.4);
+          }
+
+          /*BREAKPOINTS START HERE*/
+      		@media (max-width: 1919px) {
+						main {
+							padding: 2.5rem 3rem;
+						}
+						#title{
+							font-size: 7rem;
+						}
+						#timer {
+							margin-top: 80px;
+							justify-content: space-around;
+							align-items: center;
+						}
+						#timer .svgclock {
+							width: 300px;
+						}
+						#timer .time {
+							font-size:0.4px;
+						}
+						#timer .title{
+							font-size: 4rem;
+						}
+				}
+
+				@media (max-width: 1440px) {
+					main {
+						padding: 2rem 3rem;
+					}
+					#title{
+						font-size: 5.5rem;
+					}
+					#bar{
+						height: 10px;
+					}
+					#timer {
+						margin-top: 32px;
+						justify-content: space-around;
+						align-items: center;
+					}
+					#timer .svgclock {
+						width: 275px;
+					}
+					#timer > div{
+						min-width: 450px;
+					}
+					#timer .time {
+						font-size:0.4px;
+					}
+					#timer .title{
+						margin-top: 20px;
+						font-size: 3rem;
+					}
+				}
+
+      	@media (max-width: 1000px) {
+					main {
+						padding: 2rem 3rem;
+					}
+					#title{
+						font-size: 3rem;
+					}
+					#bar{
+						height: 10px;
+					}
+					#timer {
+						margin-top: 28px;
+						flex-flow: column nowrap;
+						justify-content: space-around;
+						align-items: center;
+					}
+					#timer .svgclock {
+						width: 150px;
+					}
+					#timer > div{
+						margin-top: 16px;
+						min-width: 450px;
+					}
+					#timer .time {
+						font-size:0.3px;
+					}
+					#timer .title{
+						margin-top: 4px;
+						font-size: 1.5rem;
+					}
+			}
+		</style>
 		
-		/* div wrapper for svg */
-		#timer .svgclock {
-			width: 350px;
-		}
-
-		#timer svg {
-			overflow: visible;
-		}
-		
-		/* border only */
-		#timer circle {
-		  fill: transparent;
-		  stroke-width: 0.01;
-		  stroke: #fff; /*#ef8c59*/
-		}
-		
-		/* actual svg circle */
-		#timer .clock {
-			fill: url(#clockgradient); /*#ef8c59; */
-			stroke: #fff;
-			stroke-width: 0.03;
-			transform: scale(1,-1);
-		}
-
-		#timer .time {
-			font-size: 0.5px;
-			text-shadow: 0px 0px 6px #999;
-			text-anchor: middle;
-			fill: #fff;
-			font-family: "oswald";
-		}
-		
-		/* timer headers */
-		#timer .title {
-			font-size: 5rem;
-			padding-top: 40px;
-			font-family: 'poiret one';
-			font-weight: 300;
-		}
-
-		/*BREAKPOINTS START HERE*/
-		/*360x540*/
-		@media (min-width: 360px) and (min-height: 540px) {
-
-			main{
-				padding: 30px 40px;
-				flex-flow: column nowrap;
-				justify-content: flex-start;
-				align-items: stretch;
-			}
-
-			#timer{
-				justify-content: space-between;
-			}
-
-			/*title*/
-			#title { 
-				font-size: 2.25rem;
-				text-align: center;
-				line-height: 15px;
-			}
-			/*size of the clock face*/
-			#timer .svgclock {
-				width: 125px;
-			}
-
-			#timer .title {
-				font-size: 2rem;
-				padding-top: 0px;
-				padding-bottom: 45px;
-				text-align: center;
-		}
-
-			#bar {
-				margin-top: 20px;
-				margin-bottom: 20px;
-				width: 100%;
-				height: 5px;
-		}
-
-		}
-		/*480x1080*/
-		@media (min-width: 480px) and (min-height: 1080px) {
-
-			main{
-				padding: 30px 40px;
-				flex-flow: column nowrap;
-				justify-content: flex-start;
-				align-items: stretch;
-			}
-			
-			#timer{
-				flex-flow: column;
-				justify-content: space-between;
-			}
-
-			/*title*/
-			#title { 
-				font-size: 2.8rem;
-				text-align: center;
-				line-height: 25px;
-			}
-			/*size of the clock face*/
-			#timer .svgclock {
-				width: 160px;
-			}
-
-			#timer .title {
-				font-size: 2.1rem;
-				padding-top: 10px;
-				text-align: center;
-		}
-
-			#bar {
-				margin-top: 40px;
-				margin-bottom: 35px;
-				width: 100%;
-				height: 10px;
-		}
-				
-		} 
-		/*540x1920*/
-		@media (min-width: 540px) and (min-height: 1920px) {
-			
-			main{
-				padding: 30px 40px;
-				flex-flow: column nowrap;
-				justify-content: flex-start;
-				align-items: stretch;
-			}
-			
-			#timer{
-				flex-flow: column;
-				justify-content: space-between;
-			}
-
-			/*title*/
-			#title { 
-				font-size: 3.7rem;
-				text-align: center;
-				line-height: 25px;
-			}
-			/*size of the clock face*/
-			#timer .svgclock {
-				width: 330px;
-			}
-
-			#timer .title {
-				font-size: 2.5rem;
-				padding-top: 15px;
-				padding-bottom: 15px;
-				text-align: center;
-		}
-
-			#bar {
-				margin-top: 50px;
-				margin-bottom: 80px;
-				width: 100%;
-				height: 15px;
-		}
-				
-		}
-		/*720x180*/
-		@media (min-width: 720px) and (min-height: 180px) {
-
-			main{
-				padding: 20px 40px;
-				flex-flow: column nowrap;
-				justify-content: flex-start;
-				align-items: stretch;
-			}
-
-			#timer{
-				justify-content: space-evenly;
-			}
-
-			/*title*/
-			#title { 
-				font-size: 2.25rem;
-				text-align: center;
-				line-height: 15px;
-			}
-			/*size of the clock face*/
-			#timer .svgclock {
-				width: 75px;
-			}
-
-			#timer .title {
-				font-size: 1.25rem;
-				padding-top: 0px;
-				padding-bottom: 0px;
-				text-align: center;
-		}
-
-			#bar {
-				margin-top: 15px;
-				margin-bottom: 20px;
-				width: 100%;
-				height: 5px;
-		}
-	
-		/*720x360*/
-		@media (min-width: 720px) and (min-height: 360px) {
-
-			main{
-				padding: 30px 15px ;
-				flex-flow: column nowrap;
-				justify-content: flex-start;
-				align-items: stretch;
-			}
-			#timer{
-				justify-content: space-between;
-				padding: 30px;
-			}
-
-			/*title*/
-			#title { 
-				font-size: 3.2rem;
-				text-align: center;
-				line-height: 25px;
-			}
-			/*size of the clock face*/
-			#timer .svgclock {
-				width: 145px;
-			}
-
-			#timer .title {
-				font-size: 2rem;
-				padding-top: 5px;
-				text-align: center;
-		}
-
-			#bar {
-				margin-top: 20px;
-				margin-bottom: 0px;
-				width: 100%;
-				height: 7px;
-		}	
-				
-		}
-		/*720x540*/
-		@media (min-width: 720px) and (min-height: 540px) {
-
-			main{
-				padding: 30px 90px ;
-				flex-flow: column nowrap;
-				justify-content: flex-start;
-				align-items: stretch;
-			}
-
-			#timer{
-				justify-content: space-around;
-				padding: 30px;
-			}
-
-			/*title*/
-			#title { 
-				font-size: 2.8rem;
-				text-align: center;
-				line-height: 25px;
-			}
-			/*size of the clock face*/
-			#timer .svgclock {
-				width: 165px;
-			}
-
-			#timer .title {
-				font-size: 2rem;
-				padding-top: 10px;
-				padding-bottom: 10px;
-				text-align: center;
-		}
-
-			#bar {
-				margin-top: 15px;
-				margin-bottom: -15px;
-				width: 100%;
-				height: 10px;
-		}			
-		}
-
-		/*1080x180*/
-		@media (min-width: 1080px) and (min-height: 180px) {
-			body{
-				width: 100%;
-				height: 100%;
-			}
-
-			main{
-				padding: 20px 120px ;
-				flex-flow: column nowrap;
-				justify-content: flex-start;
-				align-items: stretch;
-			}
-
-			#timer{
-				justify-content: space-evenly;
-			}
-
-			#title { 
-				font-size: 2.5rem;
-				text-align: center;
-				line-height: 5px;
-			}
-		
-			#timer .svgclock {
-				width: 65px;
-			}
-
-			#timer .title {
-				font-size: 1.3rem;
-				padding-top: 5px;
-				padding-bottom: 0px;
-				text-align: center;
-		}
-			#bar {
-				margin-top: 25px;
-				margin-bottom: 20px;
-				width: 100%;
-				height: 5px;
-		}	
-		}
-
-			/*1080x180 WITH NO TITLE. START UNCOMMENTING HERE*/
-/*			@media (min-width: 1080px) and (min-height: 180px) {
-			body{
-				width: 100%;
-				height: 100%;
-			}
-
-			main{
-				padding: 20px 25px ;
-				flex-flow: column nowrap;
-				justify-content: flex-start;
-				align-items: stretch;
-			}
-
-			#title { 
-				display: none;
-				font-size: 2.5rem;
-				text-align: center;
-				line-height: 5px;
-			}
-		
-			#timer .svgclock {
-				width: 115px;
-			}
-
-			#timer .title {
-				font-size: 1.3rem;
-				padding-top: 5px;
-				padding-bottom: 0px;
-				text-align: center;
-		}
-			#bar {
-				display: none;
-				margin-top: 20px;
-				margin-bottom: 5px;
-				width: 100%;
-				height: 5px;
-		}	
-		}*/
-
-
-
-		/*1080x720*/
-		@media (min-width: 1080px) and (min-height: 720px) {
-
-			main{
-				padding: 30px 220px ;
-				flex-flow: column nowrap;
-				justify-content: flex-start;
-				align-items: stretch;
-			}
-
-			#timer{
-				justify-content: space-evenly;
-				padding: 30px;
-			}
-
-			#title { 
-				font-size: 4rem;
-				text-align: center;
-				line-height: 5px;
-			}
-			#timer .svgclock {
-				width: 200px;
-			}
-
-			#timer .title {
-				font-size: 2.3rem;
-				padding-top: 6px;
-				padding-bottom: 5px;
-				text-align: center;
-		}
-			#bar {
-				margin-top: 35px;
-				margin-bottom: 30px;
-				width: 100%;
-				height: 10px;
-		}
-				
-		}
-		/*1080x1080*/
-		@media (min-width: 1080px) and (min-height: 1080px) {
-			main{
-				padding: 30px 90px ;
-				flex-flow: column nowrap;
-				justify-content: flex-start;
-				align-items: stretch;
-			}
-
-			#timer{
-				justify-content: space-around;
-				padding: 20px;
-			}
-
-			/*title*/
-			#title { 
-				font-size: 3.8rem;
-				text-align: center;
-				line-height: 25px;
-			}
-			/*size of the clock face*/
-			#timer .svgclock {
-				width: 160px;
-			}
-
-			#timer .title {
-				font-size: 2.2rem;
-				padding-top: 0px;
-				padding-bottom: 20px;
-				text-align: center;
-		}
-
-			#bar {
-				margin-top: 20px;
-				margin-bottom: 35px;
-				width: 100%;
-				height: 10px;
-		}	
-				
-		}
-		/*1080x1920*/
-		@media (min-width: 1080px) and (min-height: 1920px) {
-			main{
-				padding: 30px 90px ;
-				flex-flow: column nowrap;
-				justify-content: flex-start;
-				align-items: stretch;
-			}
-
-			#timer{
-				justify-content: space-evenly;
-				padding: 10px 0px;
-			}
-
-			/*title*/
-			#title { 
-				font-size: 5.2rem;
-				text-align: center;
-				line-height: 25px;
-			}
-			/*size of the clock face*/
-			#timer .svgclock {
-				width: 330px;
-			}
-
-			#timer .title {
-				font-size: 3.8rem;
-				padding-top: 5px;
-				padding-bottom: 20px;
-				text-align: center;
-		}
-
-			#bar {
-				margin-top: 40px;
-				margin-bottom: 60px;
-				width: 100%;
-				height: 15px;
-		}	
-
-				
-		}
-		/*1440x360*/
-		@media (min-width: 1440px) and (min-height: 360px) {
-
-			main{
-				padding: 25px 50px ;
-				flex-flow: column nowrap;
-				justify-content: flex-start;
-				align-items: stretch;
-			}
-			#timer{
-				justify-content: space-evenly;
-				padding-bottom: 0px;
-			}
-
-			#title { 
-				font-size: 3.5rem;
-				text-align: center;
-				line-height: 25px;
-			}
-			#timer .svgclock {
-				width: 200px;
-			}
-
-			#timer .title {
-				font-size: 2.3rem;
-				padding-top: 0px;
-				padding-bottom: 0px;
-				text-align: center;
-		}
-			#bar {
-				margin-top: 20px;
-				margin-bottom: -20px;
-				width: 100%;
-				height: 10px;
-		}
-				
-		}
-		/*1440x720*/
-		@media (min-width: 1440px) and (min-height: 720px) {
-
-			main{
-				padding: 25px 350px ;
-				flex-flow: column nowrap;
-				justify-content: flex-start;
-				align-items: stretch;
-				
-			}
-			#timer{
-				justify-content: space-evenly;
-				padding: 30px;
-			}
-
-			#title { 
-				font-size: 3.5rem;
-				text-align: center;
-				line-height: 25px;
-			}
-			#timer .svgclock {
-				width: 250px;
-			}
-
-			#timer .title {
-				font-size: 2.3rem;
-				padding-top: 5px;
-				padding-bottom: 5px;
-				text-align: center;
-		}
-			#bar {
-				margin-top: 30px;
-				margin-bottom: -5px;
-				width: 100%;
-				height: 10px;
-		}
-				
-		}
-		/*1440x1080*/
-		@media (min-width: 1440px) and (min-height: 1080px) {
-
-			main{
-				padding: 30px 90px ;
-				flex-flow: column nowrap;
-				justify-content: flex-start;
-				align-items: stretch;
-			}
-
-			#timer{
-				justify-content: space-around;
-				padding: 30px;
-			}
-
-
-			#title { 
-				font-size: 3.8rem;
-				text-align: center;
-				line-height: 25px;
-			}
-			#timer .svgclock {
-				width: 185px;
-			}
-
-			#timer .title {
-				font-size: 2.5rem;
-				padding-top: 0px;
-				padding-bottom: 0px;
-				text-align: center;
-		}
-
-			#bar {
-				margin-top: 20px;
-				margin-bottom: 0px;
-				width: 100%;
-				height: 10px;
-		}
-				
-		}
-
-		/*1920x180*/
-		@media (min-width: 1920px) and (min-height: 180px) {
-			
-			main{
-				padding: 25px 50px ;
-				flex-flow: column nowrap;
-				justify-content: flex-start;
-				align-items: stretch;
-			}
-			#timer{
-				justify-content: space-evenly;
-			}
-
-			#title { 
-				font-size: 2.5rem;
-				text-align: center;
-				line-height: 10px;
-			}
-			#timer .svgclock {
-				width: 75px;
-			}
-
-			#timer .title {
-				font-size: 1.5rem;
-				padding-top: 5px;
-				padding-bottom: -25px;
-				text-align: center;
-		}
-			#bar {
-				margin-top: 15px;
-				margin-bottom: 10px;
-				width: 100%;
-				height: 8px;
-		}
-		}
-		/*1920x360*/
-		@media (min-width: 1920px) and (min-height: 360px) {
-
-			main{
-				padding: 25px 50px ;
-				flex-flow: column nowrap;
-				justify-content: flex-start;
-				align-items: stretch;
-			}
-			#timer{
-				justify-content: space-evenly;
-			}
-			#title { 
-				font-size: 3.3rem;
-				text-align: center;
-				line-height: 10px;
-			}
-			#timer .svgclock {
-				width: 195px;
-			}
-
-			#timer .title {
-				font-size: 2rem;
-				padding-top: 5px;
-				padding-bottom: -25px;
-				text-align: center;
-		}
-			#bar {
-				margin-top: 27px;
-				margin-bottom: 0px;
-				width: 100%;
-				height: 8px;
-		}		
-		}
-		/*1920x720*/
-		@media (min-width: 1920px) and (min-height: 720px) {
-
-			main{
-				padding: 25px 60px ;
-				flex-flow: column nowrap;
-				justify-content: flex-start;
-				align-items: stretch;
-			}
-			#timer{
-				justify-content: space-evenly;
-			}
-			#title { 
-				font-size: 6.0rem;
-				text-align: center;
-				line-height: 40px;
-			}
-			#timer .svgclock {
-				width: 400px;
-			}
-
-			#timer .title {
-				font-size: 3.5rem;
-				padding-top: 5px;
-				padding-bottom: -25px;
-				text-align: center;
-		}
-			#bar {
-				margin-top: 50px;
-				margin-bottom: 30px;
-				width: 100%;
-				height: 14px;
-		}		
-
-				
-		}
-		/*1920x1080*/
-		@media (min-width: 1920px) and (min-height: 1080px) {
-
-		main {
-			background: red;
-			color: #fff;
-			font-family: "arial";
-			padding: 95px 140px;
-			display: flex;
-			flex-flow: column nowrap;
-			justify-content: flex-start;
-			align-items: stretch;
-			transition: background 1s linear;
-		}
-
-		#title {
-			font-size: 9rem;
-			text-align: center;
-			line-height: 190px;
-			font-family: 'open sans';
-		}
-
-		#bar {
-			width: 100%;
-			height: 15px;
-			background: #fff;
-			margin-top: 50px;
-			margin-bottom: 145px;
-		}
-
-		/* clock styling */
-
-		#timer {
-			flex-flow: row wrap;
-			justify-content: space-between;
-
-		}
-	
-		/* div wrapper for svg */
-		#timer .svgclock {
-			width: 350px;
-		}
-
-		#timer svg {
-			/*overflow: visible;*/
-		}
-		
-		/* border only */
-		#timer circle {
-		  fill: transparent;
-		  stroke-width: 0.01;
-		  stroke: #fff; /*#ef8c59*/
-		}
-		
-		/* actual svg circle */
-		#timer .clock {
-			fill: url(#clockgradient); /*#ef8c59; */
-			stroke: #fff;
-			stroke-width: 0.05;
-			transform: scale(1,-1);
-		}
-
-		#timer .time {
-			font-size: 0.5px;
-			text-shadow: 0px 0px 6px #999;
-			text-anchor: middle;
-			fill: #fff;
-			font-family: "oswald";
-		}
-		
-		/* timer headers */
-		#timer .title {
-			font-size: 5rem;
-			padding-top: 40px;
-			/*font-family: 'poiret one';*/
-			font-weight: 300;
-		}
-		/*END BREAKPOINT STYLING*/
-	</style>
-	<script>
+    <script>
 		window.onload  = function() {
-
 			var [daysLeft, hoursLeft, minutesLeft, secondsLeft] = calculateTime();
-
+			
 			window.daysX = new Clock("days", units=365, startVal=daysLeft);
 			window.hoursX = new Clock("hours", units=24, startVal=hoursLeft, parent="daysX");
 			window.minutesX = new Clock("minutes", units=60, startVal=minutesLeft, parent="hoursX");
 			window.secondsX = new Clock("seconds", units=60, startVal=secondsLeft, parent="minutesX");
 
-			// setInterval(function() { window.secondsX.tick()}, 1000/12);
 			setInterval(function() { updateClocks()}, 100);
 			setInterval(changeBG, 1000 * 60 * 5)
-
 		}
 
-		function Clock(name, units, startVal, parent=null) {
-			this.clock_name = name;
-			this.el = document.querySelector(`#${name}`);
-			this.clock = document.querySelector(`#${name} .clock`);
-			this.counter = document.querySelector(`#${name} .time`);
-			this.units = units;
-			this.degrees = 360/units;
-			this.angle = startVal ? (startVal/units) * 360 : 0;
-			this.parent = parent;
+      function Clock(name, units, startVal, parent = null) {
+        this.clock_name = name;
+        this.el = document.querySelector(`#${name}`);
+        this.clock = document.querySelector(`#${name} .clock`);
+        this.counter = document.querySelector(`#${name} .time`);
+        this.units = units;
+        this.degrees = 360 / units;
+        this.angle = startVal ? (startVal / units) * 360 : 0;
+        this.parent = parent;
 
-			// set initial prercentage
-			var flip = this.angle > 180 ? 1 : 0;
-			var [x, y] = getCoords(this.angle);
-			var d = `
+        // set initial prercentage
+        var flip = this.angle > 180 ? 1 : 0;
+        var [x, y] = getCoords(this.angle);
+        var d = `
 				    M 0 0,
 				    V 1,
 				    A 1 1 0 ${flip} 0 ${x} ${y},
 				    z
 				  `;
-			this.clock.setAttribute("d", d);
-			this.counter.textContent = `${startVal}`;
-		}
+        this.clock.setAttribute('d', d);
+        this.counter.textContent = `${startVal}`;
+      }
 
-		Clock.prototype.update = function(newVal, precision=null) {
-
-			// only for seconds clock - adds millisecond precision
-			if (precision && this.clock_name == "seconds") {
-				newVal = newVal + (precision/1000)
-			}
+      Clock.prototype.update = function (newVal, precision = null) {
+        // only for seconds clock - adds millisecond precision
+        if (precision && this.clock_name == 'seconds') {
+          newVal = newVal + precision / 1000;
+        }
 
 			this.angle = (newVal/this.units) * 360;
 			var flip = this.angle > 180 ? 1 : 0;
@@ -948,191 +287,189 @@
 				    A 1 1 0 ${flip} 0 ${x} ${y},
 				    z
 				  `;
-			this.clock.setAttribute("d", d);
-			this.counter.textContent = `${parseInt(newVal)}`;
-		}
+        var start = new Date().getTime();
+        var end = new Date(END_DATE).getTime();
+        var timeLeft = parseInt((end - start) / 1000);
+        if (timeLeft > 0) {
+          this.clock.setAttribute('d', d);
+          this.counter.textContent = `${parseInt(newVal)}`;
+        }
+      };
 
-		// gives (x,y) coords for circle sector
-		function getCoords(deg) {
-		  var x = Math.sin(toRadian(deg));
-		  var y = Math.cos(toRadian(deg));
-		  return [x,y];
-		}
+      // gives (x,y) coords for circle sector
+      function getCoords(deg) {
+        var x = Math.sin(toRadian(deg));
+        var y = Math.cos(toRadian(deg));
+        return [x, y];
+      }
 
-		// converts degrees to radians
-		function toRadian(deg) {
-			return deg * Math.PI/180
-		}
+      // converts degrees to radians
+      function toRadian(deg) {
+        return (deg * Math.PI) / 180;
+      }
 
-		// calculate countdown time
-		function calculateTime() {
-			var start = new Date().getTime();
-			var end = new Date(END_DATE).getTime();
-			var timeLeft = parseInt((end - start) / 1000);
-			var timeLeftMS = parseInt(end - start);
+      // calculate countdown time
+      function calculateTime() {
+        var start = new Date().getTime();
+        var end = new Date(END_DATE).getTime();
+        var timeLeft = parseInt((end - start) / 1000);
+        var timeLeftMS = parseInt(end - start);
 
-			if (timeLeft >= 0) {
-				var daysLeft = parseInt(timeLeft / 86400);
-				timeLeft = timeLeft % 86400;
+        if (timeLeft >= 0) {
+          var daysLeft = parseInt(timeLeft / 86400);
+          timeLeft = timeLeft % 86400;
 
-				var hoursLeft = parseInt(timeLeft / 3600);
-				timeLeft = timeLeft % 3600;
+          var hoursLeft = parseInt(timeLeft / 3600);
+          timeLeft = timeLeft % 3600;
 
-				var minutesLeft = parseInt(timeLeft / 60);
-				timeLeft = timeLeft % 60;
+          var minutesLeft = parseInt(timeLeft / 60);
+          timeLeft = timeLeft % 60;
 
-				var secondsLeft = parseInt(timeLeft);
-				var millisecondsLeft = timeLeftMS % 1000;
-			}
+          var secondsLeft = parseInt(timeLeft);
+          var millisecondsLeft = timeLeftMS % 1000;
+        }
 
 			return [daysLeft, hoursLeft, minutesLeft, secondsLeft, millisecondsLeft];
 		}
 
+      // set each clock to new time
+      function updateClocks() {
+        // calculate remaining time
+				var [daysLeft, hoursLeft, minutesLeft, secondsLeft, millisecondsLeft] = calculateTime();
 
-		// set each clock to new time
-		function updateClocks() {
+        // check if its empty
+        if (!daysLeft && !hoursLeft && !minutesLeft && !secondsLeft) {
+          document.querySelector('#timer').innerHTML = `
+				<div style="font-size: 6em;">${END_MESSAGE}</div>`;
+        }
 
-			// calculate remaining time
-			var [daysLeft, hoursLeft, minutesLeft, secondsLeft, millisecondsLeft] = calculateTime();
+        window.daysX.update(daysLeft);
+        window.hoursX.update(hoursLeft);
+        window.minutesX.update(minutesLeft);
+        window.secondsX.update(secondsLeft, millisecondsLeft);
+      }
 
-			// check if its empty
-			if (!daysLeft && !hoursLeft && !minutesLeft && !secondsLeft) {
-				document.querySelector("#timer").innerHTML = `
-				<div style="font-size: 6em;">${END_MESSAGE}</div>
-				`;
-			}
+      function changeBG() {
+        var bg = document.querySelector('main');
+        var current = bg.style.background;
 
-			window.daysX.update(daysLeft);
-			window.hoursX.update(hoursLeft);
-			window.minutesX.update(minutesLeft);
-			window.secondsX.update(secondsLeft, millisecondsLeft);
-		}
+        var i = Math.floor(Math.random() * 5);
 
-		function changeBG() {
-			
-			var bg = document.querySelector("main");
-			var current = bg.style.background;
+        while (i == colors.indexOf(current)) {
+          i = Math.floor(Math.random() * 5);
+        }
+        // change BG and clock fill
+        bg.style.background = colors[i].solid;
+        var clockColors = document.querySelectorAll('radialGradient stop');
+        clockColors[0].style.stopColor = colors[i].g1;
+        clockColors[1].style.stopColor = colors[i].g2;
+      }
 
-			var i = Math.floor(Math.random() * 6);
-
-			while (i == colors.indexOf(current)) {
-				i = Math.floor(Math.random() * 6)
-			}
-			// change BG and clock fill
-			bg.style.background = colors[i].solid;
-			var clockColors = document.querySelectorAll("radialGradient stop");
-			clockColors[0].style.stopColor = colors[i].g1;
-			clockColors[1].style.stopColor = colors[i].g2;
-
-		}
-
-		var colors = [
-			{solid:"#ff6f4c", g1:"#ff6f4c",g2:"ef8c59"},
-			{solid:"#B2ACA6", g1:"#B2ACA6",g2:"#b8c0c7"},
-			{solid:"#4B6771", g1:"#4B6771",g2:"#608390"},
-			{solid:"#9AA5AF", g1:"#9AA5AF",g2:"#b8c0c7"},
-			{solid:"#7271C8", g1:"#7271C8",g2:"#9695d6"},
-			{solid:"#035476", g1:"#035476",g2:"#0478a9"}
-		]
-
-		//
-		// CONFIGURATION: Please configure END_DATE and END_MESSAGE sections below: 
-		// 
-		// Place your desired date in the END_DATE variable below, between the quotation marks
-		// Date should be in the format MM/DD/YYYY
-		//
-		// ▼ ▼ ▼ ▼ ▼ ▼ ▼ ▼
-		var END_DATE = "1/1/2021";
-		// ▲ ▲ ▲ ▲ ▲ ▲ ▲ ▲ 
-		//
-		//
-		// ▼ ▼ ▼ ▼ ▼ ▼ ▼ ▼
-		var END_MESSAGE = `
-		Congrats! Our countdown has been reached!
-
-		Thanks to everyone for a great year!
-		`;
-		// ▲ ▲ ▲ ▲ ▲ ▲ ▲ ▲ 
-		//
-
-	</script>
-</head>
-<body>
-	<main>
-		<h1 id="title">Countdown to 200</h1>
-		<div id="bar"></div>
-		<div id="timer">
-			<div id="days">
-				<div class="svgclock">
-					<svg viewBox="-1 -1 2 2">
-						<defs>
-						 	<radialGradient id="clockgradient">
-								<stop offset="20%" style="stop-color:#ff6f4c;"></stop>
-								<stop offset="100%" style="stop-color:#ef8c59;"></stop>
-							</radialGradient>
-						</defs>
-					  	<circle cx="0" cy="0" r="1" />
-						<path class="clock"  shape-rendering="geometricPrecision"
-					      d="M 0 0,
+      var colors = [
+        { solid: '#ff6f4c', g1: '#ff6f4c', g2: 'ef8c59' },
+        { solid: '#4B6771', g1: '#4B6771', g2: '#608390' },
+        { solid: '#7271C8', g1: '#7271C8', g2: '#9695d6' },
+        { solid: '#035476', g1: '#035476', g2: '#0478a9' },
+        { solid: '#FFC300', g1: '#FFCE70', g2: '#FFED70' },
+      ];
+      // CONFIGURATION: Please configure END_DATE and END_MESSAGE sections below:
+			// 
+      // Place your desired date in the END_DATE variable below, between the quotation marks
+      // Date should be in the format MM/DD/YYYY
+      // ▼ ▼ ▼ ▼ ▼ ▼ ▼ ▼
+      var END_DATE = '1/20/2021';
+      // ▲ ▲ ▲ ▲ ▲ ▲ ▲ ▲
+			//
+      // ▼ ▼ ▼ ▼ ▼ ▼ ▼ ▼
+      var END_MESSAGE = `Congrats! Our countdown has been reached! Thanks to everyone for a great year!`;
+			// ▲ ▲ ▲ ▲ ▲ ▲ ▲ ▲
+			// 
+    </script>
+  </head>
+  <body>
+    <main>
+      <h1 id="title">Countdown to 1/20/21</h1>
+      <div id="bar"></div>
+      <div id="timer">
+        <div id="days">
+          <div class="svgclock">
+            <svg viewBox="-1 -1 2 2">
+              <defs>
+                <radialGradient id="clockgradient">
+                  <stop offset="20%" style="stop-color: #ff6f4c"></stop>
+                  <stop offset="100%" style="stop-color: #ef8c59"></stop>
+                </radialGradient>
+              </defs>
+              <circle cx="0" cy="0" r="1" />
+              <path
+                class="clock"
+                shape-rendering="geometricPrecision"
+                d="M 0 0,
 					         V 1,
 					         A 1 1 0 1 0 -.001 1,
 					         z
-					         " 
-					     />
-					    <text x="0" y="0.15" class="time">180</text>
-					</svg>
-				</div>
-				<div class="title">days</div>
-			</div>
-			<div id="hours">
-				<div class="svgclock">
-					<svg viewBox="-1 -1 2 2">
-					  	<circle cx="0" cy="0" r="1" />
-						<path class="clock"  shape-rendering="geometricPrecision"
-					      d="M 0 0,
+					         "
+              />
+              <text x="0" y="0.15" class="time">180</text>
+            </svg>
+          </div>
+          <div class="title">days</div>
+        </div>
+        <div id="hours">
+          <div class="svgclock">
+            <svg viewBox="-1 -1 2 2">
+              <circle cx="0" cy="0" r="1" />
+              <path
+                class="clock"
+                shape-rendering="geometricPrecision"
+                d="M 0 0,
 					         V 1,
 					         A 1 1 0 1 0 -.001 1,
 					         z
-					         " 
-					     />
-					    <text x="0" y="0.15" class="time">24</text>
-					</svg>
-				</div>
-				<div class="title">hours</div>
-			</div>
-			<div id="minutes">
-				<div class="svgclock">
-					<svg viewBox="-1 -1 2 2">
-					  	<circle cx="0" cy="0" r="1" />
-						<path class="clock"  shape-rendering="geometricPrecision"
-					      d="M 0 0,
+					         "
+              />
+              <text x="0" y="0.15" class="time">24</text>
+            </svg>
+          </div>
+          <div class="title">hours</div>
+        </div>
+        <div id="minutes">
+          <div class="svgclock">
+            <svg viewBox="-1 -1 2 2">
+              <circle cx="0" cy="0" r="1" />
+              <path
+                class="clock"
+                shape-rendering="geometricPrecision"
+                d="M 0 0,
 					         V 1,
 					         A 1 1 0 1 0 -.001 1,
 					         z
-					         " 
-					     />
-					    <text x="0" y="0.15" class="time">60</text>
-					</svg>
-				</div>
-				<div class="title">minutes</div>
-			</div>
-			<div id="seconds">
-				<div class="svgclock">
-					<svg viewBox="-1 -1 2 2">
-					  	<circle cx="0" cy="0" r="1" />
-						<path class="clock"  shape-rendering="geometricPrecision"
-					      d="M 0 0,
+					         "
+              />
+              <text x="0" y="0.15" class="time">60</text>
+            </svg>
+          </div>
+          <div class="title">minutes</div>
+        </div>
+        <div id="seconds">
+          <div class="svgclock">
+            <svg viewBox="-1 -1 2 2">
+              <circle cx="0" cy="0" r="1" />
+              <path
+                class="clock"
+                shape-rendering="geometricPrecision"
+                d="M 0 0,
 					         V 1,
 					         A 1 1 0 1 0 0 1,
 					         z
-					         " 
-					     />
-					    <text x="0" y="0.15" class="time">60</text>
-					</svg>
-				</div>
-				<div class="title">seconds</div>
-			</div>
-		</div>
-	</main>
-</body>
+					         "
+              />
+              <text x="0" y="0.15" class="time">60</text>
+            </svg>
+          </div>
+          <div class="title">seconds</div>
+        </div>
+      </div>
+    </main>
+  </body>
 </html>
